@@ -1,7 +1,7 @@
 
 
 
-function getTimeString (time){
+function getTimeString(time) {
     const hour = parseInt(time / 3600);
     const minute = time % 60
     return `${hour} hrs ${minute} min ago`
@@ -22,12 +22,12 @@ const loadVideos = () => {
         .then(data => displayVideos(data.videos))
         .catch((error) => console.log(error))
 }
-const loadCategoryVideos = (id) =>{
-   
+const loadCategoryVideos = (id) => {
+
     fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
-    .then((res) => res.json())
-    .then(data => displayVideos(data.category))
-    .catch((error) => console.log(error))
+        .then((res) => res.json())
+        .then(data => displayVideos(data.category))
+        .catch((error) => console.log(error))
 }
 
 // const cardDemo = {
@@ -51,7 +51,23 @@ const loadCategoryVideos = (id) =>{
 
 const displayVideos = (videos) => {
     const videoContainer = document.getElementById('videos')
-    videoContainer.innerHTML =""
+    videoContainer.innerHTML = ""
+
+    if (videos.length == 0) {
+        videoContainer.classList.remove('grid')
+        videoContainer.innerHTML = `
+        <div class="min-h-[300px] w-full flex flex-col gap-5 justify-center items-center">
+    <img src="assets/Icon.png" alt="">
+       <h4 class="font-bold text-2xl text-center">Oops!! Sorry, There is no <br> content here</h4>
+
+    </div>`
+        return
+    }
+    else{
+        videoContainer.classList.add('grid')
+
+    }
+
     videos.forEach((video) => {
         console.log(video);
         const card = document.createElement('div');
@@ -92,7 +108,7 @@ const DisplayCategories = (categories) => {
         console.log(item)
         // Create a button
         const buttonContainer = document.createElement('div')
-       buttonContainer.innerHTML = `
+        buttonContainer.innerHTML = `
        <button onclick="loadCategoryVideos(${item.category_id})" class= "btn">
        ${item.category}
        </button>

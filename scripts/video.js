@@ -52,6 +52,16 @@ const loadDetails = async (videoId) =>{
 }
 const displayDetails =(video) =>{
     console.log(video)
+    const detailContainer = document.getElementById('modal-content')
+
+    detailContainer.innerHTML= `
+    <img src="${video.thumbnail}" alt="">
+    <p> ${video.description}</p>`
+
+    // Way-1
+    // document.getElementById("showModalData").click()
+    // Way-2
+    document.getElementById("customModal").showModal()
 }
 // const cardDemo = {
 //     "category_id": "1001",
